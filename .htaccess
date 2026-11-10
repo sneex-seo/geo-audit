@@ -1,0 +1,23 @@
+# Auto-generated for /geo-audit/
+DirectoryIndex index.php
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTP:Authorization} ^(.+)$
+  RewriteRule .* - [E=HTTP_AUTHORIZATION:%1]
+</IfModule>
+
+# Block direct access to auth guard, worker, and dotfiles
+<FilesMatch "^(_auth\.php|worker\.php|\.ht.*|\.env.*)$">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order Deny,Allow
+    Deny from all
+  </IfModule>
+</FilesMatch>
+
+# Block direct access to lib/ and data/ folders
+RedirectMatch 403 ^.*/lib/.*$
+RedirectMatch 403 ^.*/data/.*$

@@ -1,0 +1,13 @@
+# Секрети: у репозиторії лише .env.example
+.env
+.env.*
+!.env.example
+
+# Аудити, база й логи
+data/*
+!data/.htaccess
+
+# Результати запусків із командного рядка
+*.json
+*.html
+!views/*.html
